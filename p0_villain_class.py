@@ -15,18 +15,16 @@ from random import randrange
 
 
 class Villain:
-    def __init__(self, br, wp, sz, cl):
-        self.name = ""
-        self.breed = []
+    def __init__(self, pt, wp, sz, cl):
+        # self.name = ""  # I may not need this
+        self.position = []
         self.weapon = []
         self.size = []
-        self.color = []
 
     # I need to create a function that has all of the lists below and will get called when a new villain needs to be created
-br = ["reaper", "slave", "ghost", "mummy", "guard", "knight"]
+br = ["Physician", "Nurse", "Orderly", "Mortician", "Therapist"]
 wp = ["telekinesis", "an axe", "strength", "a sword", "a scythe", "chains"]
 sz = ["small", "big", "tall", "giant", "towering", "large", "tiny"]
-cl = ["white", "black", "red", ""]
 
 
 villain_1 = randrange(0, len(br), randrange(0, len(wp)))
