@@ -16,11 +16,10 @@ import turtle
 
 user = input("Please enter your name: ")
 def instructions():
-    print("Hello There,", user, "and welcome to my game!")   # the "!" isn't where I want it to be
-    time.sleep(3)
-    print("Welcome to my adventure game: The Haunted House.")
-    print("The rules and objectives are simple:")
-    time.sleep(3)
+    print("Hello There,", user, "and welcome to my game!")
+    print("The Haunted House.")
+    print("The rules and objectives are simple: Get to the final level with enough points to win!")
+    time.sleep(4)
     print()
     print("Your goal is to get through my haunted house which is five levels tall with 20 points or more.")
     print("Since I'm nice, you get 10 points off the bat")
