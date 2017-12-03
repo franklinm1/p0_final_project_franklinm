@@ -11,23 +11,39 @@
 #
 # Help From:
 ######################################################################
-from random import randrange
+import random
 
 
 class Villain:
-    def __init__(self, pt, wp, sz, cl):
-        # self.name = ""  # I may not need this
-        self.position = []
-        self.weapon = []
-        self.size = []
+    def __init__(self, ty, wp, sz):
+        self.type = ty    # the type or in my games case "occupation"
+        self.weapon = wp   # type of weapon that the villain can use
+        self.size = sz    # the size the villain can be
 
-    # I need to create a function that has all of the lists below and will get called when a new villain needs to be created
-br = ["Physician", "Nurse", "Orderly", "Mortician", "Therapist"]
-wp = ["telekinesis", "an axe", "strength", "a sword", "a scythe", "chains"]
-sz = ["small", "big", "tall", "giant", "towering", "large", "tiny"]
+    def create(self, ty, wp, sz):
+        self.type = ["Physician", "Nurse", "Orderly", "Medical Examiner", "Therapist"]
+        self.weapon = ["telekinesis", "a surgical saw", "chains", "mind control", "a scalpel"]
+        self.size = ["small", "big", "tall", "towering", "large"]
+
+        vil_1 = random.choice(ty)
+        if vil_1 == "Physician":
+            wp = ["a surgical saw", "a scalpel"]
+            sz = ["big", "tall", "towering"]
+        elif vil_1 == "Medical Examiner":
+            wp = ["stryker saws"]
+            sz = ["lofty", "towering", "giant"]
+        elif vil_1 == "Nurse":
+            wp = ["telekinesis", "chains"]
+            sz = ["small"]
+        elif vil_1 == "Orderly":
+            wp = ["telekinesis", "chains"]
+            sz = ["small"]
+        elif vil_1 == "Therapist":
+            wp = ["telekinesis", "mind control"]
+            sz = ["large"]
+
+vil_1 = Villain(ty, wp, sz)
+vil_1.create(random.choice(ty), random.choice(wp), random.choice(sz))
+print("Villain 1 is a", random.choice(sz), vil_1, "and welds", random.choice(wp), "as their weapon")
 
 
-villain_1 = randrange(0, len(br), randrange(0, len(wp)))
-villain_2 = randrange(0, len(wp), randrange(0, len(br)))
-print("Villain 1 is a", br[villain_1], "and welds", wp[villain_1], "as their weapon")
-print("Villain 2 welds", wp[villain_2], "as their weapon and is a", br[villain_2])
