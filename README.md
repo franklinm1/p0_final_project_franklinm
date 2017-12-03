@@ -8,8 +8,8 @@ Here are the instruction on how to play the game:
   c. there will be three options to choose from when you came to an enemy:
       you can either:
           1. Run-Away (you lose 2 points)
-          2. You fight (you have the possiblity to either lose 3 points or gain 3 points)
-          3. You hide (you have the possibilty to either lose 1 point or gain 1 point)
+          2. You fight (you have the possiblity to either lose 3 points or gain 5 points)
+          3. You hide (you have the possibilty to either lose 2 point or gain 3 point)
   d. you go through all five levels with these guidelines
   e. if you make it to the final level and have more than 30 points you win
   f. if you make it to the final level and don't have more than 30 points, you lose
