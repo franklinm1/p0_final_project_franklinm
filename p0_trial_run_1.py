@@ -8,7 +8,7 @@
 #        with better code designs from what we've learned the whole semester.
 # Old Code Being Used: A5: The Game of Nim, and T1: Create your own Adventure
 #
-# Help From:
+# Help From: Scott Heggen
 ######################################################################
 import time
 import random
@@ -52,54 +52,61 @@ def instructions(user):
     print("Simple right... GREAT, LET'S PLAY")
     time.sleep(4)
 
-def levels():               # first you are told how many points you have
+def levels(): # first you are told how many points you have
+    global num_points
     num_points = 20
     time.sleep(2)
     print("You have THREE choices in order to proceed")   # then you are giving the three choices, you choose ONE
     for i in range(5):
         player_choice = input("Do you wish to {Run/Hide/Fight]: ")
         if player_choice == "Run":
-            num_points = num_points - 2  # you lose 2 points no matter what
+            num_points = num_points - 1 # you lose 1 point no matter what
             print("You choose to RUN.")
             time.sleep(1)
-            print("You lost 2 points and are now at", num_points, ". You may now continue dearest player.")
+            print("You lost 1 point and are now at", num_points, ". You may now continue dearest player.")
         if player_choice == "Hide":
             print("You choose to HIDE.")
+            print("Let's roll your fate")
             time.sleep(2)
             gain_lose = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-            if random.choice(gain_lose) <= 5:
-                num_points = num_points - 2
-                time.sleep(2)
-                print("You lost 2 points and are now at", num_points, ". Shall we continue, dearest player.")
-            elif random.choice(gain_lose) >= 6:
+            roll = random.choice(gain_lose)
+            if roll <= 5:
+                print("You rolled a", roll)
+                num_points = num_points - 1
+                time.sleep(1)
+                print("You lost 1 point and are now at", num_points, ". Shall we continue, dearest player.")
+            elif roll >= 6:
+                print("You rolled a", roll)
                 num_points = num_points + 3
                 print("You gained 3 points and are now at", num_points, ". This is getting fun! Let's keep going.")
         if player_choice == "Fight":
             print("You choose to FIGHT.")
             time.sleep(2)
             gain_lose = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-            if random.choice(gain_lose) <= 7:
-                num_points = num_points - 3
-                time.sleep(2)
-                print("You lost 3 points and are now at", num_points, ". Don't worry, everyone has one of those days. Lets keep going.")
-            elif random.choice(gain_lose) >= 8:
+            roll = random.choice(gain_lose)
+            if roll <= 7:
+                print("You rolled a", roll)
+                num_points = num_points - 2
+                time.sleep(1)
+                print("You lost 2 points and are now at", num_points, ". Don't worry, everyone has one of those days. Lets keep going.")
+            elif roll >= 8:
+                print("You rolled a", roll)
                 num_points = num_points + 5
                 print("You gained 5 points and are now at", num_points, ". You did it!! More fun awaits.")
 
 def final_outcome():
-    num_points = 20   # i need to make this global
+    global num_points
     time.sleep(3)
     print("You made it to the end. Now let's see what fate has in-store for you.")
     time.sleep(2)
-    if num_points >= 20:
+    while num_points >= 30:
         print("YOU WIN!!")
-    else:
-        print("... Sorry, it looks like you didn't win. Well, thanks for playing HAHA.")
+    print("Sorry.... you lose!")
+
 def main():
-    user = input("Please enter your name: ")
+    user = input("Please enter your name player: ")
     instructions(user)
     levels()
     final_outcome()
-
 
 main()
