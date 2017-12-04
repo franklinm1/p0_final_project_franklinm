@@ -34,7 +34,7 @@ def instructions(user):
     print("If you HIDE you get to roll your fate")  # you have a 50/50 chance to gain points
     print("If you roll a 6 or more the villain doesn't see you and you receive 3 points")
     time.sleep(5)
-    print("BUT if you roll a 5 or less the villain finds you, you lose 1 points, and you make it out by the skin of your teeth")
+    print("BUT if you roll a 5 or less the villain finds you, you lose 1 point, and you make it out by the skin of your teeth")
     time.sleep(5)
     print()
     print("The last option is to FIGHT")
@@ -50,7 +50,8 @@ def instructions(user):
     print("HOWEVER, if you lose... you are now one of my new villains.")
     print()
     print("Simple right... GREAT, LET'S PLAY")
-    time.sleep(4)
+    print()
+    time.sleep(3)
 
 def levels(): # first you are told how many points you have
     global num_points
@@ -99,6 +100,7 @@ def final_outcome():
     time.sleep(3)
     print("You made it to the end. Now let's see what fate has in-store for you.")
     time.sleep(2)
+    print(num_points)
     while num_points >= 30:
         print("YOU WIN!!")
     print("Sorry.... you lose!")
