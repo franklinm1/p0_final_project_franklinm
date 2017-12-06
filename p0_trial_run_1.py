@@ -1,6 +1,6 @@
-#####################################################################
+######################################################################
 # Author: Megan Franklin
-# Username: franklinm:
+# Username: franklinm
 #
 # Assignment: Project 0: Final Project
 #
@@ -13,102 +13,144 @@
 import time
 import random
 
+class Boss:
+    def __init__(self, ty, wp, sz):
+        self.type = ty    # the type or in my games case "occupation"
+        self.weapon = wp   # type of weapon that the villain can use
+        self.size = sz    # the size the villain can be
+
+    def create(self, ty, wp, sz):
+        self.type = ["Physician", "Nurse", "Orderly", "Medical Examiner", "Therapist"]
+        self.weapon = ["telekinesis", "a surgical saw", "chains", "mind control", "a scalpel"]
+        self.size = ["small", "big", "tall", "towering", "large"]
+
+        self.weapon.deepcopy = wp
+        self.size.deepcopy = sz
+
+        boss = random.choice(ty)
+        if boss == "Physician":
+            wp = ["a surgical saw", "a scalpel"]
+            sz = ["big", "tall", "towering"]
+        elif boss == "Medical Examiner":
+            wp = ["stryker saws"]
+            sz = ["lofty", "towering", "giant"]
+        elif boss == "Nurse":
+            wp = ["telekinesis", "chains"]
+            sz = ["small"]
+        elif boss == "Orderly":
+            wp = ["telekinesis", "chains"]
+            sz = ["small"]
+        elif boss == "Therapist":
+            wp = ["telekinesis", "mind control"]
+            sz = ["large"]
+
+        boss = Boss(ty, wp, sz)
+        boss.create(random.choice(ty), random.choice(wp), random.choice(sz))
+        print("This BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
+
 def instructions(user):
     print("Hello There,", user, "and welcome to my game!")
     print("The Abandoned Hospital.")
-    print("The rules and objectives are simple: Get to the final level with points to win!")
+    print("The rules and objectives are simple: Beat the BOSS and you win!")
     time.sleep(4)
     print()
-    print("Your goal is to get through the hospital with 30 points or more.")
-    print("Since I'm nice, you get 20 points off the bat")
-    time.sleep(6)
+    print("Your goal is to get through the hospital without dying.")
+    time.sleep(3)
     print()
-    print("The points system is simple: on each floor you will encounter a villain.")   # everything below explains the point system
-    print("You can do one of three things.")
-    time.sleep(6)
-    print()                                         # these are the three options you have on each floor
-    print("You can either RUN, HIDE, or FIGHT")     # this is the only choice where you have no chance to gain points
-    print("If you RUN you lose 1 point no matter what. But hey, you make it to the next level")
+    print("The BOSS will be generated at the beginning of the game.")
+    print("You can do one of two things.")
+    time.sleep(5)
+    print()                                         # these are the two options you have on each floor
+    print("You can either REST or FIGHT")
+    print()
+    time.sleep(2)
+    print("If you REST there will be a chance that the BOSS will damage you")
+    time.sleep(2)
+    print()
+    print("If you roll a 5 or more you land a successful attack on the BOSS")
+    print("If you roll a 6 or less you are damaged by the BOSS")
     time.sleep(5)
     print()
-    print("If you HIDE you get to roll your fate")  # you have a 50/50 chance to gain points
-    print("If you roll a 6 or more the villain doesn't see you and you receive 3 points")
-    time.sleep(5)
-    print("BUT if you roll a 5 or less the villain finds you, you lose 1 point, and you make it out by the skin of your teeth")
-    time.sleep(5)
-    print()
-    print("The last option is to FIGHT")
+    print("The other option is to FIGHT")
     print("On this one the stakes are a little higher")
-    time.sleep(4)
-    print("If you roll a 8 or more you defeat the villain and gain 5 points")
-    print("If you roll a 7 or less you are damaged by the villain and lose 2 points but still move to the next level.")
-    time.sleep(6)
     print()
-    print("By the time you make it to the final level, you should have 30 points or more")
-    print("If you do, Congrats, you beat my game.")
+    time.sleep(4)
+    print("If you roll a 6 or more you land a successful attack on the BOSS")
+    print("If you roll a 5 or less you are damaged by the BOSS")
     time.sleep(5)
-    print("HOWEVER, if you lose... you are now one of my new villains.")
+    print()
+    print("The goal of the game is to beat the BOSS")
+    print("If you do, Congrats, you beat my game.")
+    time.sleep(4)
+    print("HOWEVER, if you lose... you die... yeah that's about it.")
     print()
     print("Simple right... GREAT, LET'S PLAY")
     print()
     time.sleep(3)
 
-def levels(): # first you are told how many points you have
-    global num_points
-    num_points = 20
+def turns():
+    global player_health
+    global villain_health
+    player_health = 100
+    villain_health = 200
     time.sleep(2)
-    print("You have THREE choices in order to proceed")   # then you are giving the three choices, you choose ONE
-    for i in range(5):
-        player_choice = input("Do you wish to {Run/Hide/Fight]: ")
-        if player_choice == "Run":
-            num_points = num_points - 1 # you lose 1 point no matter what
-            print("You choose to RUN.")
-            time.sleep(1)
-            print("You lost 1 point and are now at", num_points, ". You may now continue dearest player.")
-        if player_choice == "Hide":
-            print("You choose to HIDE.")
-            print("Let's roll your fate")
+
+    #boss = Boss(ty, wp, sz)
+    #boss.create(random.choice(ty), random.choice(wp), random.choice(sz))
+    #print("This BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
+
+    print("You have TWO choices in order to proceed")   # then you are giving the three choices, you choose ONE
+    while player_health > 0 and villain_health > 0:   # this may not work
+        player_choice = input("Do you wish to [Rest/Fight]: ")
+        if player_choice == "Rest":
+            print("You choose to REST.")
             time.sleep(2)
             gain_lose = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             roll = random.choice(gain_lose)
-            if roll <= 5:
+            if roll <= 6:
                 print("You rolled a", roll)
-                num_points = num_points - 1
+                player_health = player_health - 15
                 time.sleep(1)
-                print("You lost 1 point and are now at", num_points, ". Shall we continue, dearest player.")
-            elif roll >= 6:
-                print("You rolled a", roll)
-                num_points = num_points + 3
-                print("You gained 3 points and are now at", num_points, ". This is getting fun! Let's keep going.")
+                print("You are at", player_health)
+                print("You were hit with a attack and lost 15 HP, what will you do next?")
         if player_choice == "Fight":
             print("You choose to FIGHT.")
             time.sleep(2)
             gain_lose = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             roll = random.choice(gain_lose)
-            if roll <= 7:
+            if roll <= 5:
                 print("You rolled a", roll)
-                num_points = num_points - 2
+                player_health = player_health - 20
                 time.sleep(1)
-                print("You lost 2 points and are now at", num_points, ". Don't worry, everyone has one of those days. Lets keep going.")
-            elif roll >= 8:
+                print(player_health)
+                print("You were hit with a attack and lost 20 HP, what will you do next?")
+            elif roll >= 6:
                 print("You rolled a", roll)
-                num_points = num_points + 5
-                print("You gained 5 points and are now at", num_points, ". You did it!! More fun awaits.")
+                villain_health = villain_health - 35
+                print("The BOSS is at", villain_health)
+                print("You managed to hit the BOSS with a attack they lost 35 HP, what will you do next?")
+    print("GAME OVER. Let's go see the results")
 
 def final_outcome():
-    global num_points
+    global player_health
+    global villain_health
     time.sleep(3)
-    print("You made it to the end. Now let's see what fate has in-store for you.")
+    print("You made it to the end.... and it seems that...")
     time.sleep(2)
-    print(num_points)
-    while num_points >= 30:
+    print(player_health)
+    if villain_health == 0:
         print("YOU WIN!!")
-    print("Sorry.... you lose!")
+    if player_health == 0:
+        print("Sorry.... you lose!")
 
 def main():
     user = input("Please enter your name player: ")
     instructions(user)
-    levels()
-    final_outcome()
 
+    #boss = Boss(ty, wp, sz)
+    #boss.create(random.choice(ty), random.choice(wp), random.choice(sz))
+    #print("This BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
+
+    turns()
+    final_outcome()
 main()
