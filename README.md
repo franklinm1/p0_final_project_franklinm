@@ -12,4 +12,4 @@ Here are the instruction on how to play the game:
   d. you go through all six turns with these guidelines
   e. if you manage to kill the BOSS, you win
   f. if you manage to lose all of your health within the six turns, you lose
-  g. (this could be a possibilty) if you lose all your health before you make it to the emd you lose
+  g. if you lose all your health before you make it to the emd you lose
