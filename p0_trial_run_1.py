@@ -21,7 +21,7 @@ class Boss:
 
     def create(self):
         ty = ["Physician", "Nurse", "Orderly", "Medical Examiner", "Therapist"]
-        wp = ["telekinesis", "a surgical saw", "chains", "mind control", "a scalpel"]
+        wp = ["telekinesis", "a surgical saw", "long chains", "mind control", "a giant scalpel"]
         sz = ["small", "big", "tall", "towering", "large"]
 
         boss = random.choice(ty)
@@ -48,8 +48,10 @@ class Boss:
 
 def instructions(user):
     print("Hello There,", user, "and welcome to my game!")
-    print()
+    time.sleep(2)
     print("The Abandoned Hospital.")
+    time.sleep(2)
+    print()
     print("The rules and objectives are simple: Beat the BOSS and you win!")
     time.sleep(4)
     print()
@@ -78,6 +80,7 @@ def instructions(user):
     print("If you roll a 6-9 or more you land a successful attack on the BOSS")
     print("If you roll a 2-4 or less you are damaged by the BOSS")
     time.sleep(5)
+    print()
     print("There are also special rolls you can get that will lead to different attacks, with different damage types")
     time.sleep(3)
     print()
@@ -98,55 +101,68 @@ def turns():
     global player_health
     global villain_health
     player_health = 100
+    print("You start off with 100 health")
     villain_health = 200
+    print("The BOSS starts off with 200 health")
     time.sleep(2)
+    print()
     print("You have TWO choices in order to proceed")   # then you are giving the three choices, you choose ONE
-    while player_health > 0 and villain_health > 0:   # this may not work
+    while player_health > 0 and villain_health > 0:
         player_choice = input("Do you wish to [Rest/Fight]: ")
+        print()
         if player_choice == "Rest":
             print("You choose to REST.")
+            print()
             time.sleep(2)
             gain_lose = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             roll = random.choice(gain_lose)
-            if roll <= 6:   # 1-6
+            if roll <= 6:      # 1-6                  # If you roll a 1-6 you lose health
                 print("You rolled a", roll)
                 player_health = player_health - 15
                 time.sleep(1)
                 print("You are at", player_health)
                 print("You were hit with a attack and lost 15 HP, what will you do next?")
+                print()
         if player_choice == "Fight":
             print("You choose to FIGHT.")
+            print()
             time.sleep(2)
             gain_lose = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             roll = random.choice(gain_lose)
-            if roll == 2 or 3 or 4:   # 2-4
+            if roll in range(2, 5):  # 2-4
                 print("You rolled a", roll)          # if you roll a 2-4 the PLAYER takes 10 damage
                 player_health = player_health - 20
                 time.sleep(1)
                 print(player_health)
                 print("You were hit with a attack and lost 20 HP, what will you do next?")
+                print()
             elif roll == 1:
                 print("You rolled a", roll)          # if you roll a 1 the PLAYER takes 50 damage
                 player_health = player_health - 50
                 time.sleep(1)
                 print(player_health)
                 print("You were hit with a attack and lost 50 HP!, what will you do next?")
-            elif roll == 6 or 7 or 8 or 9:   # 6-9
+                print()
+            elif roll in range(6, 10):
                 print("You rolled a", roll)           # if you roll a 6-9 the BOSS takes 35 damage
                 villain_health = villain_health - 35
                 print("The BOSS is at", villain_health)
                 print("You managed to hit the BOSS with a attack they lost 35 HP, what will you do next?")
+                print()
             elif roll == 5:   # 5
                 print("You rolled a", roll)           # if you roll a 5 the BOSS takes 45 damage
                 villain_health = villain_health - 45
                 print("The BOSS is at", villain_health)
                 print("You managed to hit the BOSS with a attack they lost 45 HP, what will you do next?")
+                print()
             elif roll == 10:  # 10
                 print("You rolled a", roll)            # if you roll a 10 the BOSS takes 100 damage
                 villain_health = villain_health - 100
                 print("The BOSS is at", villain_health)
                 print("You managed to hit the BOSS with a attack they lost 100 HP!, what will you do next?")
+                print()
     print("GAME OVER. Let's go see the results")
+    print()
 
 def final_outcome():
     global player_health
@@ -155,14 +171,16 @@ def final_outcome():
     print("You made it to the end.... and it seems that...")
     time.sleep(2)
     print(player_health)
-    if villain_health == 0:
+    if villain_health <= 0:
+        time.sleep(2)
         print("YOU WIN!!")
-    if player_health == 0:
+    if player_health <= 0:
+        time.sleep(2)
         print("Sorry.... you lose!")
 
 def main():
     user = input("Please enter your name player: ")
-    instructions(user)
+    #instructions(user)
 
     boss = Boss()   # this creates the object in the class Boss
     boss.create()
