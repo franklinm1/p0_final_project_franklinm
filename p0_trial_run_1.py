@@ -14,42 +14,41 @@ import time
 import random
 
 class Boss:
-    def __init__(self, ty, wp, sz):
-        self.type = ty    # the type or in my games case "occupation"
-        self.weapon = wp   # type of weapon that the villain can use
-        self.size = sz    # the size the villain can be
+    def __init__(self):
+        self.type = []    # the type or in my games case "occupation"
+        self.weapon = []  # type of weapon that the villain can use
+        self.size = []   # the size the villain can be
 
-    def create(self, ty, wp, sz):
-        self.type = ["Physician", "Nurse", "Orderly", "Medical Examiner", "Therapist"]
-        self.weapon = ["telekinesis", "a surgical saw", "chains", "mind control", "a scalpel"]
-        self.size = ["small", "big", "tall", "towering", "large"]
-
-        self.weapon.deepcopy = wp
-        self.size.deepcopy = sz
+    def create(self):
+        ty = ["Physician", "Nurse", "Orderly", "Medical Examiner", "Therapist"]
+        wp = ["telekinesis", "a surgical saw", "chains", "mind control", "a scalpel"]
+        sz = ["small", "big", "tall", "towering", "large"]
 
         boss = random.choice(ty)
         if boss == "Physician":
-            wp = ["a surgical saw", "a scalpel"]
+            wp = ["a surgical saw", "a giant scalpel"]
             sz = ["big", "tall", "towering"]
+            print("The BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
         elif boss == "Medical Examiner":
             wp = ["stryker saws"]
             sz = ["lofty", "towering", "giant"]
+            print("The BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
         elif boss == "Nurse":
-            wp = ["telekinesis", "chains"]
+            wp = ["telekinesis", "long chains"]
             sz = ["small"]
+            print("The BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
         elif boss == "Orderly":
-            wp = ["telekinesis", "chains"]
+            wp = ["telekinesis", "long chains"]
             sz = ["small"]
+            print("The BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
         elif boss == "Therapist":
             wp = ["telekinesis", "mind control"]
             sz = ["large"]
-
-        boss = Boss(ty, wp, sz)
-        boss.create(random.choice(ty), random.choice(wp), random.choice(sz))
-        print("This BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
+            print("The BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
 
 def instructions(user):
     print("Hello There,", user, "and welcome to my game!")
+    print()
     print("The Abandoned Hospital.")
     print("The rules and objectives are simple: Beat the BOSS and you win!")
     time.sleep(4)
@@ -57,9 +56,9 @@ def instructions(user):
     print("Your goal is to get through the hospital without dying.")
     time.sleep(3)
     print()
-    print("The BOSS will be generated at the beginning of the game.")
+    print("A random BOSS will be generated at the beginning of the game.")
+    time.sleep(3)
     print("You can do one of two things.")
-    time.sleep(5)
     print()                                         # these are the two options you have on each floor
     print("You can either REST or FIGHT")
     print()
@@ -67,21 +66,28 @@ def instructions(user):
     print("If you REST there will be a chance that the BOSS will damage you")
     time.sleep(2)
     print()
-    print("If you roll a 5 or more you land a successful attack on the BOSS")
+    print("If you roll a 7 or more the BOSS misses their attack")
     print("If you roll a 6 or less you are damaged by the BOSS")
     time.sleep(5)
     print()
     print("The other option is to FIGHT")
+    print()
     print("On this one the stakes are a little higher")
     print()
     time.sleep(4)
-    print("If you roll a 6 or more you land a successful attack on the BOSS")
-    print("If you roll a 5 or less you are damaged by the BOSS")
+    print("If you roll a 6-9 or more you land a successful attack on the BOSS")
+    print("If you roll a 2-4 or less you are damaged by the BOSS")
     time.sleep(5)
+    print("There are also special rolls you can get that will lead to different attacks, with different damage types")
+    time.sleep(3)
+    print()
+    print("The special numbers are 1, 5, and 10")
+    time.sleep(3)
     print()
     print("The goal of the game is to beat the BOSS")
     print("If you do, Congrats, you beat my game.")
     time.sleep(4)
+    print()
     print("HOWEVER, if you lose... you die... yeah that's about it.")
     print()
     print("Simple right... GREAT, LET'S PLAY")
@@ -94,11 +100,6 @@ def turns():
     player_health = 100
     villain_health = 200
     time.sleep(2)
-
-    #boss = Boss(ty, wp, sz)
-    #boss.create(random.choice(ty), random.choice(wp), random.choice(sz))
-    #print("This BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
-
     print("You have TWO choices in order to proceed")   # then you are giving the three choices, you choose ONE
     while player_health > 0 and villain_health > 0:   # this may not work
         player_choice = input("Do you wish to [Rest/Fight]: ")
@@ -107,7 +108,7 @@ def turns():
             time.sleep(2)
             gain_lose = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             roll = random.choice(gain_lose)
-            if roll <= 6:
+            if roll <= 6:   # 1-6
                 print("You rolled a", roll)
                 player_health = player_health - 15
                 time.sleep(1)
@@ -118,17 +119,33 @@ def turns():
             time.sleep(2)
             gain_lose = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             roll = random.choice(gain_lose)
-            if roll <= 5:
-                print("You rolled a", roll)
+            if roll == 2 or 3 or 4:   # 2-4
+                print("You rolled a", roll)          # if you roll a 2-4 the PLAYER takes 10 damage
                 player_health = player_health - 20
                 time.sleep(1)
                 print(player_health)
                 print("You were hit with a attack and lost 20 HP, what will you do next?")
-            elif roll >= 6:
-                print("You rolled a", roll)
+            elif roll == 1:
+                print("You rolled a", roll)          # if you roll a 1 the PLAYER takes 50 damage
+                player_health = player_health - 50
+                time.sleep(1)
+                print(player_health)
+                print("You were hit with a attack and lost 50 HP!, what will you do next?")
+            elif roll == 6 or 7 or 8 or 9:   # 6-9
+                print("You rolled a", roll)           # if you roll a 6-9 the BOSS takes 35 damage
                 villain_health = villain_health - 35
                 print("The BOSS is at", villain_health)
                 print("You managed to hit the BOSS with a attack they lost 35 HP, what will you do next?")
+            elif roll == 5:   # 5
+                print("You rolled a", roll)           # if you roll a 5 the BOSS takes 45 damage
+                villain_health = villain_health - 45
+                print("The BOSS is at", villain_health)
+                print("You managed to hit the BOSS with a attack they lost 45 HP, what will you do next?")
+            elif roll == 10:  # 10
+                print("You rolled a", roll)            # if you roll a 10 the BOSS takes 100 damage
+                villain_health = villain_health - 100
+                print("The BOSS is at", villain_health)
+                print("You managed to hit the BOSS with a attack they lost 100 HP!, what will you do next?")
     print("GAME OVER. Let's go see the results")
 
 def final_outcome():
@@ -147,10 +164,10 @@ def main():
     user = input("Please enter your name player: ")
     instructions(user)
 
-    #boss = Boss(ty, wp, sz)
-    #boss.create(random.choice(ty), random.choice(wp), random.choice(sz))
-    #print("This BOSS is a", random.choice(sz), boss, "and welds", random.choice(wp), "as their weapon")
+    boss = Boss()   # this creates the object in the class Boss
+    boss.create()
 
     turns()
     final_outcome()
+
 main()
