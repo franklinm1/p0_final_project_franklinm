@@ -116,12 +116,15 @@ def turns():
             time.sleep(2)
             gain_lose = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
             roll = random.choice(gain_lose)
-            if roll <= 6:      # 1-6                  # If you roll a 1-6 you lose health
+            if roll <= 5:      # 1-5                # If you roll a 1-6 you lose health
                 print("You rolled a", roll)
                 player_health = player_health - 10
                 time.sleep(1)
                 print("You are at", player_health, "health")
                 print("You were hit with a AVERAGE attack and lost 10 HP, what will you do next?")
+                print()
+            else:
+                print("You dodged the attack, losing no health")
                 print()
         if player_choice == "Fight":
             print("You choose to FIGHT.")
@@ -144,24 +147,24 @@ def turns():
                 print("You were hit with a CRITICAL attack and lost 45 HP!, what will you do next?")
                 print()
             elif roll in range(6, 10):
-                print("You rolled a", roll)           # if you roll a 6-9 the BOSS takes 25 damage
-                villain_health = villain_health - 25
+                print("You rolled a", roll)           # if you roll a 6-9 the BOSS takes 55 damage
+                villain_health = villain_health - 55
                 print()
                 time.sleep(2)
-                print("You hit the BOSS with a WEAK hit")
+                print("You hit the BOSS with a AVERAGE hit")
                 print()
                 print("The BOSS is at", villain_health)
-                print("The BOSS lost 35 HP, what will you do next?")
+                print("The BOSS lost 55 HP, what will you do next?")
                 print()
             elif roll == 5:   # 5
-                print("You rolled a", roll)           # if you roll a 5 the BOSS takes 45 damage
-                villain_health = villain_health - 45
+                print("You rolled a", roll)           # if you roll a 5 the BOSS takes 35 damage
+                villain_health = villain_health - 35
                 print()
                 time.sleep(2)
                 print("You hit the BOSS with a AVERAGE attack")
                 print()
                 print("The BOSS is at", villain_health)
-                print("The BOSS lost 45 HP, what will you do next?")
+                print("The BOSS lost 35 HP, what will you do next?")
                 print()
             elif roll == 10:  # 10
                 print("You rolled a", roll)            # if you roll a 10 the BOSS takes 100 damage
@@ -181,12 +184,13 @@ def final_outcome():
     global villain_health
     time.sleep(3)
     print("You made it to the end.... and it seems that...")
+    print()
     time.sleep(2)
     if villain_health <= 0:
         time.sleep(1)
         print("YOU WIN!!")
         print()
-        print("You survived with", player_health, "left.")
+        print("You survived with", player_health, "health left.")
         print()
         time.sleep(1)
         print("THANKS FOR PLAYING!")
