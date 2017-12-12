@@ -139,7 +139,9 @@ def turns():
                 print()
             else:                                   # if you roll 6-10 you dodge the attack
                 print("You rolled a", roll)
-                print("You dodged the attack, losing no health")
+                player_health = player_health + 10
+                print("You dodged the attack, and gained a little health")
+                print(player_health)
                 print()
         if player_choice == "Fight":
             print("You choose to FIGHT.")
